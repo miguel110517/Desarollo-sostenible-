@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hábitos Sostenibles</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 font-sans text-gray-800">
+  <div class="max-w-3xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-green-700 mb-6">Evaluación de Hábitos Sostenibles</h1>
+    <form id="habitForm" class="space-y-4">
+      <div>
+        <label class="block font-semibold">1. ¿Con qué frecuencia usas transporte público?</label>
+        <select name="transporte" class="w-full border rounded p-2">
+          <option value="nunca">Nunca</option>
+          <option value="a veces">A veces</option>
+          <option value="frecuente">Frecuentemente</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">2. ¿Con qué frecuencia comes carne roja?</label>
+        <select name="carne" class="w-full border rounded p-2">
+          <option value="frecuente">Frecuentemente</option>
+          <option value="a veces">A veces</option>
+          <option value="rara vez">Rara vez</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">3. ¿Apagas las luces cuando no las usas?</label>
+        <select name="luces" class="w-full border rounded p-2">
+          <option value="no">No</option>
+          <option value="a veces">A veces</option>
+          <option value="siempre">Siempre</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">4. ¿Tienes electrodomésticos de bajo consumo?</label>
+        <select name="electrodomesticos" class="w-full border rounded p-2">
+          <option value="no">No</option>
+          <option value="algunos">Algunos</option>
+          <option value="todos">Todos</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">5. ¿Separás los residuos en tu casa?</label>
+        <select name="residuos" class="w-full border rounded p-2">
+          <option value="no">No</option>
+          <option value="a veces">A veces</option>
+          <option value="siempre">Siempre</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">6. ¿Cuántos minutos te duchas?</label>
+        <input type="number" name="ducha" min="1" class="w-full border rounded p-2">
+      </div>
+      <div>
+        <label class="block font-semibold">7. ¿Utilizas bolsas reutilizables al hacer compras?</label>
+        <select name="bolsas" class="w-full border rounded p-2">
+          <option value="no">No</option>
+          <option value="a veces">A veces</option>
+          <option value="siempre">Siempre</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">8. ¿Compras productos locales?</label>
+        <select name="locales" class="w-full border rounded p-2">
+          <option value="no">No</option>
+          <option value="a veces">A veces</option>
+          <option value="siempre">Siempre</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">9. ¿Tienes plantas o cultivas algo en casa?</label>
+        <select name="plantas" class="w-full border rounded p-2">
+          <option value="no">No</option>
+          <option value="pocas">Pocas</option>
+          <option value="muchas">Muchas</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-semibold">10. ¿Has participado en actividades ambientales?</label>
+        <select name="activismo" class="w-full border rounded p-2">
+          <option value="no">No</option>
+          <option value="una vez">Una vez</option>
+          <option value="varias veces">Varias veces</option>
+        </select>
+      </div>
+
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ver sugerencias</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("habitForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      let sugerencias = [];
+
+      if (data.transporte === "nunca") sugerencias.push("Intenta usar transporte público una vez por semana.");
+      if (data.carne === "frecuente") sugerencias.push("Reduce el consumo de carne roja a 1-2 veces por semana.");
+      if (data.luces !== "siempre") sugerencias.push("Apaga las luces al salir de una habitación.");
+      if (data.electrodomesticos === "no") sugerencias.push("Considera reemplazar electrodomésticos por modelos de bajo consumo.");
+      if (data.residuos !== "siempre") sugerencias.push("Empieza a separar los residuos reciclables y orgánicos.");
+      if (parseInt(data.ducha) > 5) sugerencias.push("Reduce el tiempo de ducha a menos de 5 minutos.");
+      if (data.bolsas !== "siempre") sugerencias.push("Usa bolsas reutilizables para todas tus compras.");
+      if (data.locales !== "siempre") sugerencias.push("Compra productos locales para reducir la huella de carbono.");
+      if (data.plantas === "no") sugerencias.push("Agrega plantas en tu hogar o empieza un pequeño cultivo.");
+      if (data.activismo === "no") sugerencias.push("Participa en actividades comunitarias de limpieza o reciclaje.");
+
+      const popup = window.open("", "Sugerencias", "width=500,height=600");
+      popup.document.write(`
+        <html>
+        <head>
+          <title>Sugerencias Sostenibles</title>
+          <style>
+            body { font-family: sans-serif; padding: 20px; background-color: #f0fdf4; color: #065f46; }
+            h2 { color: #047857; }
+            ul { margin-top: 15px; padding-left: 20px; }
+            li { margin-bottom: 10px; }
+          </style>
+        </head>
+        <body>
+          <h2>Sugerencias Personalizadas 🌱</h2>
+          <ul>
+            ${sugerencias.map(s => `<li>${s}</li>`).join('') || '<li>¡Tus hábitos ya son muy sostenibles! 🌿</li>'}
+          </ul>
+        </body>
+        </html>
+      `);
+      popup.document.close();
+    });
+  </script>
+</body>
+</html>
